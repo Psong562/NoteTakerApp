@@ -4,7 +4,7 @@ const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
 
 
-
+// gets notes and return all saved notes as JSON
 router.get('/api/notes', (req, res) =>{
   fs.readFile(path.join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) { console.log(err) }
@@ -12,6 +12,8 @@ router.get('/api/notes', (req, res) =>{
   })
 })
 
+
+// Receives new note to save on body of db.json and returns new note
 router.post ('/api/notes', (req, res) => {
   const note = req.body
   note.id = uuidv4();
@@ -25,6 +27,7 @@ router.post ('/api/notes', (req, res) => {
   })
 })
 
+// deletes note containing ID
 router.delete ('/api/notes/:id', (req,res) =>{
   fs. readFile(path.join(__dirname, '..', 'db', 'db.json'), 'utf8',(err, data) =>{
     const notes = JSON.parse(data)
@@ -42,6 +45,6 @@ router.delete ('/api/notes/:id', (req,res) =>{
 })
 
 
-
+//  export router
 module.exports = router
 
