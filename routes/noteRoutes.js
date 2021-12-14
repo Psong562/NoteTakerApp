@@ -16,6 +16,7 @@ router.get('/api/notes', (req, res) =>{
 // Receives new note to save on body of db.json and returns new note
 router.post ('/api/notes', (req, res) => {
   const note = req.body
+  // adds ID to note
   note.id = uuidv4();
   fs.readFile(path.join(__dirname, '..', 'db', 'db.json' ), 'utf8', (err, data) => {
     const notes = JSON.parse(data)
@@ -31,9 +32,10 @@ router.post ('/api/notes', (req, res) => {
 router.delete ('/api/notes/:id', (req,res) =>{
   fs. readFile(path.join(__dirname, '..', 'db', 'db.json'), 'utf8',(err, data) =>{
     const notes = JSON.parse(data)
+    // deletes note using ID 
     for (let i = 0; i < notes.length; i++) {
-      const dbELement = notes[i];
-        if(dbELement.id === req.params.id) {
+      const notesELement = notes[i];
+        if(notesELement.id === req.params.id) {
           notes.splice(i, 1)
         }
     }
